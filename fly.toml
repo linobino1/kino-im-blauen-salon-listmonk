@@ -1,0 +1,40 @@
+# fly.toml app configuration file generated for kino-im-blauen-salon-listmonk on 2024-04-21T12:45:52+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'kino-im-blauen-salon-listmonk'
+primary_region = 'ams'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+  [build.args]
+    PORT = '9000'
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 9000
+  auto_stop_machines = true
+  auto_start_machines = false
+  min_machines_running = 1
+  processes = ['app']
+
+  [[services.ports]]
+    port = 80
+    handlers = ['http']
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ['tls', 'http']
+
+  [services.concurrency]
+    type = 'requests'
+    hard_limit = 250
+    soft_limit = 200
+
+[[vm]]
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
