@@ -1,0 +1,18 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Wake up, listmonk!
+
+on:
+  schedule:
+    # everyday at 09:15 UTC
+    - cron: "15 9 * * *"
+    # everyday at 15:15 UTC
+    - cron: "15 15 * * *"
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      # curl the listmonk instance to wake it up
+      - name: curl
+        run: curl -s https://news.kinoimblauensalon.de > /dev/null
