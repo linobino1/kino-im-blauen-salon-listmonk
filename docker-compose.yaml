@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   listmonk:
-    image: listmonk/listmonk:v3.0.0
+    image: listmonk/listmonk:v4.1.0
     ports:
       - 9000:9000
     command: "./listmonk --static-dir=/listmonk/static"
@@ -10,8 +10,6 @@ services:
     # command: "./listmonk --install --yes --upgrade"
     environment:
       LISTMONK_app__address: 0.0.0.0:9000
-      LISTMONK_app__admin_username: listmonk
-      LISTMONK_app__admin_password: listmonk
       LISTMONK_app__email_format: both
       LISTMONK_db__host: listmonk_db
       LISTMONK_db__port: 5432
