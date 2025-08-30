@@ -2,12 +2,14 @@ version: "3.7"
 
 services:
   listmonk:
-    image: listmonk/listmonk:v4.1.0
+    image: listmonk/listmonk:v5.0.3
     ports:
       - 9000:9000
     command: "./listmonk --static-dir=/listmonk/static"
     # install commmand:
-    # command: "./listmonk --install --yes --upgrade"
+    # command: "./listmonk --install --yes"
+    # upgrade commmand:
+    # command: "./listmonk --upgrade --yes"
     environment:
       LISTMONK_app__address: 0.0.0.0:9000
       LISTMONK_app__email_format: both
@@ -16,11 +18,20 @@ services:
       LISTMONK_db__user: listmonk
       LISTMONK_db__password: listmonk
       LISTMONK_db__name: listmonk
+      # using environment variables:
+      # LISTMONK_db__host: ${PGHOST}
+      # LISTMONK_db__port: ${PGPORT}
+      # LISTMONK_db__user: ${PGUSER}
+      # LISTMONK_db__password: ${PGPASSWORD}
+      # LISTMONK_db__database: ${PGDATABASE}
+      # LISTMONK_db__ssl_mode: ${PGSSLMODE}
+
     volumes:
       - ./static:/listmonk/static
 
   listmonk_db:
-    image: postgres:13
+    image: postgres:16
+    network_mode: "host"
     ports:
       - 5432:5432
     environment:
